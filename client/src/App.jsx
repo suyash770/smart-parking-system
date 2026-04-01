@@ -12,7 +12,7 @@ import Dashboard from './components/Dashboard';
 import MapView from './components/MapView';
 import Toast from './components/Toast';
 
-const API = '';
+const API = import.meta.env.VITE_API_URL || '';
 
 /* ── Mock fallback data ── */
 const MOCK_SLOTS_F1 = [
@@ -120,7 +120,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const socket = io(window.location.origin, { transports: ['websocket', 'polling'] });
+    const socket = io(API || window.location.origin, { transports: ['websocket', 'polling'] });
     socketRef.current = socket;
     socket.on('slotsUpdated', setSlots);
     return () => socket.disconnect();
